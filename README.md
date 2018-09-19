@@ -1,4 +1,4 @@
-# webmgeneral
+# WEBM GENERAL
 A video to webm conversion tool used to make webm's slightly under 4chan's file size limit.
 
 Latest release: https://github.com/voxgibson/webmgeneral/releases/tag/v1.0
