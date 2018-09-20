@@ -13,7 +13,9 @@ window['bg'] = '#EEF2FF'
 # Functions
 def inputVideo():
     # Opens input video file dialog.
-    directory = filedialog.askopenfilename(filetypes=[('Video Files', '*.3gp *.avi *.flv *.mp4 *.mpeg *.mov *.wmv')])
+    directory = filedialog.askopenfilename(filetypes=[('Video Files', 
+    ' *.3g2 *.3gp *.asf *.avi *.flv *.h264 *.m2t *.m2ts *.m4v *.mkv *.mod *.mov *.mp4 *.mpg *.tod *.vob *.wmv'),
+    ('All', '*.*')])
     directoryPath = os.path.normpath(directory)
     inputVideo_ent.delete(0, END)
     inputVideo_ent.insert(0, directoryPath)
@@ -40,7 +42,7 @@ def start():
     outputName = os.path.splitext(os.path.basename(inputVideo))[0]
     outputFolder = str(outputFolder_ent.get())
     fullPath = str(outputFolder + '\\' + outputName + '.webm')
-    subprocess.Popen('ffmpeg -y -i "' + inputVideo + '" -c:v libvpx -b:v "' + str(bitRate) + '"M -c:a libvorbis -an "' + fullPath)
+    subprocess.Popen('ffmpeg -y -i "' + inputVideo + '" -c:v libvpx -b:v "' + str(bitRate) + '"M -vf scale=1280:-1 -c:a libvorbis -an "' + fullPath)
 
 # Entry Fields
 inputVideo_ent = Entry(fg='#789922', width=45)
