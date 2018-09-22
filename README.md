@@ -5,7 +5,8 @@ Latest release: https://github.com/voxgibson/webmgeneral/releases/tag/v1.0
 
 ![alt text](https://i.imgur.com/A1YKEP9.png)
 
-Tips:
+Things to know:
+
 It is possible for webms to go over 4chan's 3Mb file size limit.
 
 The program will lower the bit rate until the output webm is under the size limit.
