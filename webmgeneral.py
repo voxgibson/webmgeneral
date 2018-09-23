@@ -56,7 +56,7 @@ def start():
     if resultSize < 3073000:
         window.deiconify() # <<< Window reappears.
     else:
-        getRate = float(bitRate_ent.get())-.018 # <<< Subtracts .018 from current bit rate. 
+        getRate = float(bitRate_ent.get())-.02 # <<< Subtracts .02 from current bit rate. 
         newRate = round(getRate,3)
         bitRate_ent.delete(0, END)
         bitRate_ent.insert(0, newRate)
@@ -74,7 +74,7 @@ bitRate_ent.grid(row=3, column=5, padx=5, sticky='W')
 
 # Labels
 Label(text='WEBM GENERAL', font='Arial 11 bold', fg='#0f0c5d', bg='#EEF2FF').grid(row=0, column=1, sticky='W', columnspan=3)
-Label(text='Converter v1.0', font='Arial 10 bold', fg='#789922', bg='#EEF2FF').grid(row=0, column=4, sticky='W')
+Label(text='Converter v1.2', font='Arial 10 bold', fg='#789922', bg='#EEF2FF').grid(row=0, column=4, sticky='W')
 Label(text='Input Video >', bg='#EEF2FF').grid(row=1, column=1, sticky='E')
 Label(text='Output Folder >', bg='#EEF2FF').grid(row=2, column=1, sticky='E')
 Label(text='Calculated Maximum Allowed Bitrate (Mb/s) >', bg='#EEF2FF').grid(row=3, column=4, sticky='E')
