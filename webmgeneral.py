@@ -49,7 +49,7 @@ def start():
 
     # Hides window and starts the conversion.
     window.withdraw()
-    subprocess.call('ffmpeg -y -i "' + inputVideo + '" -c:v libvpx -b:v "' + str(bitRate) + '"M -vf scale=1280:-1 -c:a libvorbis -an "' + fullPath)
+    subprocess.call('ffmpeg -y -i "' + inputVideo + '" -c:v libvpx -b:v "' + str(bitRate) + '"M -vf scale=-1:720 -c:a libvorbis -an "' + fullPath)
     
     # Checks if WebM went over maximum file size. 
     resultSize = os.path.getsize(fullPath)
