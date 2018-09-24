@@ -11,6 +11,6 @@ It is possible for webms to go over 4chan's 3Mb file size limit on the first con
 
 If this happens the program will lower the bit rate until the output webm is under the size limit.
 
-It will also scale down large input videos to have a width of 1280p. The height will adjust evenly.
+It will also scale down large input videos to have a height of 720 pixels. The width will adjust evenly.
 
 For the best results use videos under 30 seconds.
