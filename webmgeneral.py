@@ -1,3 +1,5 @@
+# WEBM GENERAL CONVERTER v1.4 #
+
 # Modules
 import os
 import subprocess
@@ -60,8 +62,9 @@ def start():
 
     # Starts ffmpeg conversion from video to WebM and hides gui window during the process.
     window.withdraw()
-    subprocess.call(f'ffmpeg -y -i "{inputVideo}" -threads 0 -sn -an -c:v libvpx -b:v {bitRate} -vf scale=-1:{maxHeight} -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f webm -pass 1 nul')
-    subprocess.call(f'ffmpeg -y -i "{inputVideo}" -threads 0 -sn -an -c:v libvpx -b:v {bitRate} -vf scale=-1:{maxHeight} -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f webm -pass 2 "{fullPath}"')
+    subprocess.call(f'ffmpeg -y -i "{inputVideo}" -threads 0 -sn -an -c:v libvpx -b:v {bitRate} -vf scale=h=min(ih\,{maxHeight}):w=-2 -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f webm -pass 1 nul')
+    subprocess.call(f'ffmpeg -y -i "{inputVideo}" -threads 0 -sn -an -c:v libvpx -b:v {bitRate} -vf scale=h=min(ih\,{maxHeight}):w=-2 -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f webm -pass 2 "{fullPath}"')
+    
     window.deiconify()
 
     #Removes ffmpeg2pass-0.log if it already exist. 
@@ -95,7 +98,7 @@ bitRate_ent.grid(row=3, column=5, padx=5, sticky='W')
 
 # Labels
 Label(text='WEBM GENERAL', font='Arial 11 bold', fg='#0f0c5d', bg='#EEF2FF').grid(row=0, column=1, sticky='W', columnspan=3)
-Label(text='Converter v1.3', font='Arial 10 bold', fg='#789922', bg='#EEF2FF').grid(row=0, column=4, sticky='W')
+Label(text='Converter v1.4', font='Arial 10 bold', fg='#789922', bg='#EEF2FF').grid(row=0, column=4, sticky='W')
 Label(text='Input Video >', bg='#EEF2FF').grid(row=1, column=1, sticky='E')
 Label(text='Output Folder >', bg='#EEF2FF').grid(row=2, column=1, sticky='E')
 Label(text='Calculated Maximum Allowed Bitrate (bits/s) >', bg='#EEF2FF').grid(row=3, column=4, sticky='E')
