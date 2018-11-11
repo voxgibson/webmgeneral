@@ -9,9 +9,9 @@ Note: To run the program from source requires python 3.7 (The portable version d
 
 ![alt text](https://i.imgur.com/T8JO7HG.jpg)
 
-The program was written in Python3
+The program was written in Python.
 
-It uses ffmpeg to convert videos. 
+It uses ffmpeg to convert videos to webms.
 
 The Windows portable versions were made using pyinstaller along with WinZip Self-Extractor.
 
