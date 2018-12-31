@@ -1,4 +1,4 @@
-# WEBM GENERAL CONVERTER v1.4 #
+# WEBM GENERAL CONVERTER v1.5 #
 
 # Modules
 import os
@@ -75,12 +75,23 @@ def start():
 
     # Checks if WebM went over maximum file size. 
     # If so the video is reconverted with a lower bit rate.
-    resultSize = os.path.getsize(fullPath/8)
-    print(resultSize)
+    resultBytes = os.path.getsize(fullPath)
+    resultBits = resultBytes*8
+    print('###############################################')
+    print('WEBM FILE SIZE LIMIT (Bits): 24584000')
+    print('WEBM RESULT SIZE     (Bits): ' + str(resultBits))
+    print('###############################################')
 
-    if resultSize < maxBitSize:
-        print('FINISHED')
+    if resultBits < maxBitSize:
+        print('###############################################')
+        print('WEBM OUTPUT RESULT IS BELOW FILE SIZE LIMIT')
+        print('FINISHED!')
+        window.deiconify()
     else:
+        print('###############################################')
+        print('WEBM OUTPUT RESULT WENT OVER FILE SIZE LIMIT')
+        print('RECONVERTING INPUT VIDEO AT A LOWER BIT RATE')
+        print('###############################################')
         newRate = int(bitRate_ent.get())-123456
         bitRate_ent.delete(0, END)
         bitRate_ent.insert(0, newRate)
@@ -98,10 +109,10 @@ bitRate_ent.grid(row=3, column=5, padx=5, sticky='W')
 
 # Labels
 Label(text='WEBM GENERAL', font='Arial 11 bold', fg='#0f0c5d', bg='#EEF2FF').grid(row=0, column=1, sticky='W', columnspan=3)
-Label(text='Converter v1.4', font='Arial 10 bold', fg='#789922', bg='#EEF2FF').grid(row=0, column=4, sticky='W')
+Label(text='Converter v1.5', font='Arial 10 bold', fg='#789922', bg='#EEF2FF').grid(row=0, column=4, sticky='W')
 Label(text='Input Video >', bg='#EEF2FF').grid(row=1, column=1, sticky='E')
 Label(text='Output Folder >', bg='#EEF2FF').grid(row=2, column=1, sticky='E')
-Label(text='Calculated Maximum Allowed Bitrate (bits/s) >', bg='#EEF2FF').grid(row=3, column=4, sticky='E')
+Label(text='Calculated Maximum Allowed Bitrate (Bits/s) >', bg='#EEF2FF').grid(row=3, column=4, sticky='E')
 
 # Buttons
 Button(text='Browse', width=10, command=inputVideo).grid(row=1, column=5, padx=5, sticky='W')
