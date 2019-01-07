@@ -1,13 +1,31 @@
 # WEBM GENERAL CONVERTER
 A video to webm conversion tool used to create high quality webms that stay below 4chan's file size limit.
 
-The current version was designed to run on Windows and Linux computers.
+The current version was designed to run on Windows and Linux computers. 
+
+The Linux version may work on macOS but I have not tested it yet.
 
 Latest release: https://github.com/voxgibson/webmgeneral/releases/tag/v1.5
 
-Note: To run the program from source requires python 3.7 (The portable version does not require python installation.)
+![alt text](https://i.imgur.com/YqWixDU.jpg)
 
-![alt text](https://i.imgur.com/T8JO7HG.jpg)
+Requirements & Use: 
+
+To run the program from source requires python 3 (The portable version for Windows does not require python installation.)
+
+The Linux version requires these installs through the terminal. (Tested on Ubuntu):
+
+sudo apt-get install python3
+
+sudo apt-get install python3-tk
+
+sudo apt-get install ffmpeg
+
+Example command to run in the program in Linux:
+
+sudo python3 '/home/chad/Desktop/webmgeneral-master/webmgeneral_linux.py'
+
+Notes:
 
 The program was written in Python.
 
