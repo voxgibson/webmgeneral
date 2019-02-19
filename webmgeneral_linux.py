@@ -1,4 +1,4 @@
-# WEBM GENERAL CONVERTER v1.5 LINUX #
+# WEBM GENERAL CONVERTER v1.6 LINUX #
 
 # Required Installations:
 # sudo apt-get install python3 
@@ -8,7 +8,7 @@
 # Modules
 import os
 import subprocess
-from tkinter import END, Button, Entry, Label, Tk, filedialog
+from tkinter import END, Button, Entry, Label, Tk, filedialog, StringVar, OptionMenu
 
 # Window Configuration
 window = Tk()
@@ -61,8 +61,8 @@ def start():
     outputName = os.path.splitext(os.path.basename(inputVideo))[0]
     fullPath = str(f'{outputFolder}/{outputName}.webm')
     
-    # Videos that have a height over this will be scaled down. 
-    maxHeight = 720
+    # Gets selected output resolution option. 
+    maxHeight = resSelect.get()
 
     # Starts ffmpeg conversion from video to WebM and hides gui window during the process.
     window.withdraw()
@@ -111,10 +111,18 @@ bitRate_ent.grid(row=3, column=5, padx=5, sticky='W')
 
 # Labels
 Label(text='WEBM GENERAL', font='Arial 14 bold', fg='#0f0c5d', bg='#EEF2FF').grid(row=0, column=1, sticky='W', columnspan=3)
-Label(text='Converter v1.5', font='Arial 13 bold', fg='#789922', bg='#EEF2FF').grid(row=0, column=4, sticky='W')
+Label(text='Converter v1.6', font='Arial 13 bold', fg='#789922', bg='#EEF2FF').grid(row=0, column=4, sticky='W')
+Label(text='Max Output Resolution >', bg='#EEF2FF').grid(row=0, column=4, sticky='E')
 Label(text='Input Video >', bg='#EEF2FF').grid(row=1, column=1, sticky='E')
 Label(text='Output Folder >', bg='#EEF2FF').grid(row=2, column=1, sticky='E')
 Label(text='Calculated Maximum Allowed Bitrate (Bits/s) >', bg='#EEF2FF').grid(row=3, column=4, sticky='E')
+
+# Options
+resList = ["720", "1080"]
+resSelect = StringVar()
+resSelect.set(resList[0])
+outRes_ent = OptionMenu(window, resSelect, *resList)
+outRes_ent.grid(row=0, column=5, padx=5, pady=1, sticky='W')
 
 # Buttons
 Button(text='Browse', width=10, command=inputVideo).grid(row=1, column=5, padx=5, sticky='W')
