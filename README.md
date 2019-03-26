@@ -31,7 +31,7 @@ It uses ffmpeg to convert videos to webms.
 
 The Windows portable versions were made using pyinstaller along with WinZip Self-Extractor.
 
-Helpful Links: 
+**Helpful Links:**
 
 https://www.python.org/downloads/windows/
 
