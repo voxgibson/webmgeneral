@@ -9,7 +9,9 @@ The current version was designed to run on Windows and Linux computers.
 
 **Requirements & Use:** 
 
-To run the program from source requires python 3 (The portable version for Windows does not require python installation.)
+The portable version for Windows does not require python installation.
+
+To run the program from source requires python 3
 
 The Linux version requires these installs through the terminal. (Tested on Ubuntu):
 
