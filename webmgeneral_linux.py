@@ -1,4 +1,4 @@
-# WEBM GENERAL CONVERTER v1.6 LINUX #
+# WEBM GENERAL CONVERTER v1.7 LINUX #
 
 # Required Installations:
 # sudo apt-get install python3 
@@ -16,8 +16,8 @@ window.title('WEBM GENERAL CONVERTER')
 window.resizable(0, 0)
 window['bg'] = '#EEF2FF'
 
-# 4chan's maximum allowed webm file size in bits.
-maxBitSize = 24584000
+# Maximum allowed webm file size in bits.
+maxBitSize = 25165824
 
 # Functions
 def inputVideo():
@@ -80,7 +80,7 @@ def start():
     resultBytes = os.path.getsize(fullPath)
     resultBits = resultBytes*8
     print('###############################################')
-    print('WEBM FILE SIZE LIMIT (Bits): 24584000')
+    print('WEBM FILE SIZE LIMIT (Bits): ' + str(maxBitSize))
     print('WEBM RESULT SIZE     (Bits): ' + str(resultBits))
     print('###############################################')
 
@@ -94,7 +94,7 @@ def start():
         print('WEBM OUTPUT RESULT WENT OVER FILE SIZE LIMIT')
         print('RECONVERTING INPUT VIDEO AT A LOWER BIT RATE')
         print('###############################################')
-        newRate = int(bitRate_ent.get())-123456
+        newRate = int(bitRate_ent.get())-10000
         bitRate_ent.delete(0, END)
         bitRate_ent.insert(0, newRate)
         start()
@@ -111,16 +111,16 @@ bitRate_ent.grid(row=3, column=5, padx=5, sticky='W')
 
 # Labels
 Label(text='WEBM GENERAL', font='Arial 14 bold', fg='#0f0c5d', bg='#EEF2FF').grid(row=0, column=1, sticky='W', columnspan=3)
-Label(text='Converter v1.6', font='Arial 13 bold', fg='#789922', bg='#EEF2FF').grid(row=0, column=4, sticky='W')
+Label(text='Converter v1.7', font='Arial 13 bold', fg='#789922', bg='#EEF2FF').grid(row=0, column=4, sticky='W')
 Label(text='Max Output Resolution >', bg='#EEF2FF').grid(row=0, column=4, sticky='E')
 Label(text='Input Video >', bg='#EEF2FF').grid(row=1, column=1, sticky='E')
 Label(text='Output Folder >', bg='#EEF2FF').grid(row=2, column=1, sticky='E')
 Label(text='Calculated Maximum Allowed Bitrate (Bits/s) >', bg='#EEF2FF').grid(row=3, column=4, sticky='E')
 
 # Options
-resList = ["720", "1080"]
+resList = ["480", "720", "1080"]
 resSelect = StringVar()
-resSelect.set(resList[0])
+resSelect.set(resList[1])
 outRes_ent = OptionMenu(window, resSelect, *resList)
 outRes_ent.grid(row=0, column=5, padx=5, pady=1, sticky='W')
 
