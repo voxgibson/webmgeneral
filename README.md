@@ -5,7 +5,7 @@ The current version was designed to run on Windows and Linux computers.
 
 Latest release: https://github.com/voxgibson/webmgeneral/releases/tag/v1.7
 
-![alt text](https://i.imgur.com/YqWixDU.jpg)
+![alt text](https://i.imgur.com/fH2DgH0.png)
 
 Requirements & Use: 
 
