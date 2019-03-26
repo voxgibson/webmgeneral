@@ -3,7 +3,7 @@ A video to webm conversion tool used to create high quality webms that stay belo
 
 The current version was designed to run on Windows and Linux computers. 
 
-Latest release: https://github.com/voxgibson/webmgeneral/releases/tag/v1.6
+Latest release: https://github.com/voxgibson/webmgeneral/releases/tag/v1.7
 
 ![alt text](https://i.imgur.com/YqWixDU.jpg)
 
