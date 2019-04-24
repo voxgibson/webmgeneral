@@ -11,7 +11,7 @@ The portable versions for Windows are standalone applications and do not require
 
 If you want to run the program from source in Windows it requires Python 3, ffmpeg.exe and ffprobe.exe
 
-The ffmpeg and ffprobe exe's need to be in the same folder as the the program.
+The ffmpeg and ffprobe exe's need to be in the same folder as webmgeneral.py
 
 Link to Python 3 download: https://www.python.org/downloads
 
