@@ -15,7 +15,7 @@ The ffmpeg and ffprobe exe's need to be in the same folder as webmgeneral.py
 
 Link to Python 3 download: https://www.python.org/downloads
 
-Link to ffmpeg and ffprobe for Windows. (The applications are in the bin folder): https://ffmpeg.zeranoe.com/builds/
+Link to ffmpeg and ffprobe for Windows. (They are in the bin folder): https://ffmpeg.zeranoe.com/builds/
 
 Example command to run the program in Windows:
 
