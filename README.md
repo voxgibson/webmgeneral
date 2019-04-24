@@ -15,7 +15,7 @@ Link to Python 3 download: https://www.python.org/downloads
 
 Check 'Add Python to PATH' at the install screen.
 
-Download for ffmpeg.exe and ffprobe.exe (They are in the bin folder): https://ffmpeg.zeranoe.com/builds/
+Download link for ffmpeg.exe and ffprobe.exe (They will be in the bin folder): https://ffmpeg.zeranoe.com/builds/
 
 ffmpeg.exe and ffprobe.exe need to be put in the same folder as webmgeneral.py
 
