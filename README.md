@@ -9,17 +9,19 @@ A video to webm conversion tool used to create high quality webms that stay belo
 
 The portable versions for Windows are standalone applications and do not require any additional installations.
 
-If you want to run the program from source in Windows it requires Python 3, ffmpeg.exe and ffprobe.exe
-
-ffmpeg.exe and ffprobe.exe need to be in the same folder as webmgeneral.py
+If you want to run the program from source it requires Python 3, ffmpeg.exe and ffprobe.exe
 
 Link to Python 3 download: https://www.python.org/downloads
 
+Check 'Add Python to PATH' at the install screen.
+
 Download for ffmpeg.exe and ffprobe.exe (They are in the bin folder): https://ffmpeg.zeranoe.com/builds/
+
+ffmpeg.exe and ffprobe.exe need to be put in the same folder as webmgeneral.py
 
 Example command to run the program in Windows:
 
-*python3 "C:\Users\chad\Desktop\webmgeneral-master\webmgeneral.py"*
+*python "C:\Users\chad\Desktop\webmgeneral-master\webmgeneral.py"*
 
 **Linux Requirements:**
 
