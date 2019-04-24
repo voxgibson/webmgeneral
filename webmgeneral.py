@@ -9,7 +9,6 @@ from tkinter import END, Button, Entry, Label, Tk, filedialog, StringVar, Option
 window = Tk()
 window.title('WEBM GENERAL CONVERTER')
 window.resizable(0, 0)
-window.iconbitmap('icon.ico')
 window['bg'] = '#EEF2FF'
 
 # Maximum allowed webm file size in bits.
