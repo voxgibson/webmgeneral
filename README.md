@@ -50,11 +50,3 @@ Install Homebrew and ffmpeg through the terminal using these commands:
 Example command to run in the program in macOS:
 
 *python3 '/Users/chad/Desktop/webmgeneral-master/webmgeneral_macOS.py'*
-
-**Notes:**
-
-The program was written in Python.
-
-It uses ffmpeg to convert videos to webms.
-
-The Windows portable versions were made using pyinstaller along with WinZip Self-Extractor.
