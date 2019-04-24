@@ -47,6 +47,10 @@ Install Homebrew and ffmpeg through the terminal using these commands:
 
 *brew install ffmpeg*
 
+Example command to run in the program in macOS:
+
+*python3 '/Users/chad/Desktop/webmgeneral-master/webmgeneral_macOS.py'*
+
 **Notes:**
 
 The program was written in Python.
