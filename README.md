@@ -19,7 +19,7 @@ Link to ffmpeg and ffprobe for Windows. (They are in the bin folder): https://ff
 
 Example command to run the program in Windows:
 
-*python3 'C:\Users\chad\Desktop\webmgeneral-master\webmgeneral.py'*
+*python3 "C:\Users\chad\Desktop\webmgeneral-master\webmgeneral.py"*
 
 **Linux Requirements:**
 
