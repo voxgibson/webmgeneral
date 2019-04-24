@@ -19,9 +19,11 @@ Download for ffmpeg.exe and ffprobe.exe (They are in the bin folder): https://ff
 
 ffmpeg.exe and ffprobe.exe need to be put in the same folder as webmgeneral.py
 
-Example command to run the program in Windows:
+Example commands of changing to the programs directory and opening it:
 
-*python "C:\Users\chad\Desktop\webmgeneral-master\webmgeneral.py"*
+*cd "C:\Users\chad\Desktop\webmgeneral-master"*
+
+*python "webmgeneral.py"*
 
 **Linux Requirements:**
 
