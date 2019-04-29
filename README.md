@@ -11,7 +11,7 @@ The portable versions for Windows are standalone applications and do not require
 
 * Windows x64 Portable: https://github.com/voxgibson/webmgeneral/releases/download/v1.7/WEBM_GENERAL__Portable___Windows_x64_v1.7.zip
 
-* Winodws x86 Portable: https://github.com/voxgibson/webmgeneral/releases/download/v1.7/WEBM_GENERAL__Portable___Windows_x86_v1.7.zip
+* Windows x86 Portable: https://github.com/voxgibson/webmgeneral/releases/download/v1.7/WEBM_GENERAL__Portable___Windows_x86_v1.7.zip
 
 If you want to run the program from source it requires Python 3, ffmpeg.exe and ffprobe.exe
 
