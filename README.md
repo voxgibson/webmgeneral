@@ -13,13 +13,15 @@ If you want to run the program from source it requires Python 3, ffmpeg.exe and 
 
 Link to Python 3 download: https://www.python.org/downloads
 
-Check 'Add Python to PATH' at the install screen.
+(Check 'Add Python to PATH' at the install screen.)
 
-Link for ffmpeg.exe and ffprobe.exe (They will be in the bin folder): https://ffmpeg.zeranoe.com/builds/
+Download link for Windows ffmpeg: https://ffmpeg.zeranoe.com/builds/
+
+(ffmpeg.exe and ffprobe.exe will be in the bin folder.)
 
 ffmpeg.exe and ffprobe.exe need to be put in the same folder as webmgeneral.py
 
-Example commands of changing to the programs directory and opening it:
+Example commands for changing to the programs directory and running it:
 ```
 cd "C:\Users\chad\Desktop\webmgeneral-master"
 
