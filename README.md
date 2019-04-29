@@ -20,25 +20,25 @@ Link for ffmpeg.exe and ffprobe.exe (They will be in the bin folder): https://ff
 ffmpeg.exe and ffprobe.exe need to be put in the same folder as webmgeneral.py
 
 Example commands of changing to the programs directory and opening it:
+```
+cd "C:\Users\chad\Desktop\webmgeneral-master"
 
-*cd "C:\Users\chad\Desktop\webmgeneral-master"*
-
-*python "webmgeneral.py"*
-
+python "webmgeneral.py"
+```
 **Linux Requirements:**
 
 The Linux version requires these installs through the terminal (Tested on Ubuntu):
+```
+sudo apt-get install python3
 
-*sudo apt-get install python3*
+sudo apt-get install python3-tk
 
-*sudo apt-get install python3-tk*
-
-*sudo apt-get install ffmpeg*
-
+sudo apt-get install ffmpeg
+```
 Example command to run in the program in Linux:
-
-*sudo python3 '/home/chad/Desktop/webmgeneral-master/webmgeneral_linux.py'*
-
+```
+sudo python3 '/home/chad/Desktop/webmgeneral-master/webmgeneral_linux.py'
+```
 **macOS Requirements:** 
 
 The macOS version requires Python 3, Homebrew and ffmpeg.
@@ -46,11 +46,12 @@ The macOS version requires Python 3, Homebrew and ffmpeg.
 Link to Python 3 download: https://www.python.org/downloads
 
 Install Homebrew and ffmpeg through the terminal using these commands:
+```
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-*/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"*
-
-*brew install ffmpeg*
-
+brew install ffmpeg
+```
 Example command to run in the program in macOS:
-
-*python3 '/Users/chad/Desktop/webmgeneral-master/webmgeneral_macOS.py'*
+```
+python3 '/Users/chad/Desktop/webmgeneral-master/webmgeneral_macOS.py'
+```
