@@ -1,9 +1,9 @@
 # WEBM GENERAL CONVERTER
 A video to webm conversion tool used to create high quality webms that stay below 4chan's file size limit.
 
-**Latest release:** https://github.com/voxgibson/webmgeneral/releases/tag/v1.7
+**Latest release:** https://github.com/voxgibson/webmgeneral/releases/tag/v2.0
 
-![alt text](https://i.imgur.com/fH2DgH0.png)
+![alt text](https://i.imgur.com/CRZxZbg.jpg)
 
 **Windows Requirements:** 
 
