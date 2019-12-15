@@ -1,7 +1,7 @@
 # WEBM GENERAL CONVERTER
 A video to webm conversion tool used to create high quality webms that stay below 4chan's file size limit.
 
-**Latest release:** https://github.com/voxgibson/webmgeneral/releases/tag/v2.0
+**Latest release:** https://github.com/scrodo/webmgeneral/releases/tag/v2.0
 
 ![alt text](https://i.imgur.com/m1Qv8Ly.jpg)
 
@@ -9,9 +9,9 @@ A video to webm conversion tool used to create high quality webms that stay belo
 
 The portable versions for Windows are standalone applications and do not require any additional installations.
 
-* Windows x64 Portable: https://github.com/voxgibson/webmgeneral/releases/download/v2.0/WEBM_GENERAL__Portable___Windows_x64_v2.0.zip
+* Windows x64 Portable: https://github.com/scrodo/webmgeneral/releases/download/v2.0/WEBM_GENERAL__Portable___Windows_x64_v2.0.zip
 
-* Windows x86 Portable: https://github.com/voxgibson/webmgeneral/releases/download/v2.0/WEBM_GENERAL__Portable___Windows_x86_v2.0.zip
+* Windows x86 Portable: https://github.com/scrodo/webmgeneral/releases/download/v2.0/WEBM_GENERAL__Portable___Windows_x86_v2.0.zip
 
 If you want to run the program from source in Windows it requires Python 3, ffmpeg, and ffprobe.
 
