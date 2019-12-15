@@ -9,9 +9,9 @@ A video to webm conversion tool used to create high quality webms that stay belo
 
 The portable versions for Windows are standalone applications and do not require any additional installations.
 
-* Windows x64 Portable: https://github.com/voxgibson/webmgeneral/releases/download/v1.7/WEBM_GENERAL__Portable___Windows_x64_v1.7.zip
+* Windows x64 Portable: https://github.com/voxgibson/webmgeneral/releases/download/v2.0/WEBM_GENERAL__Portable___Windows_x64_v2.0.zip
 
-* Windows x86 Portable: https://github.com/voxgibson/webmgeneral/releases/download/v1.7/WEBM_GENERAL__Portable___Windows_x86_v1.7.zip
+* Windows x86 Portable: https://github.com/voxgibson/webmgeneral/releases/download/v2.0/WEBM_GENERAL__Portable___Windows_x86_v2.0.zip
 
 If you want to run the program from source in Windows it requires Python 3, ffmpeg, and ffprobe.
 
