@@ -203,7 +203,7 @@ sizeSoundSelect.trace("w", bitCalculate)
 outSizeSound_ent = OptionMenu(window, sizeSoundSelect, *sizeSoundList)
 outSizeSound_ent.grid(row=0, column=4, padx=5, pady=1, sticky='E')
 
-# Mex output resolution options.
+# Max output resolution options.
 resList = ["480", "720", "1080"]
 resSelect = StringVar()
 resSelect.set(resList[1])
