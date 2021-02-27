@@ -120,7 +120,7 @@ def convert():
         inputVideo = inputVideo_ent.get()
         outputFolder = outputFolder_ent.get()
         outputName = os.path.splitext(os.path.basename(inputVideo))[0]
-        fullPath = f'{outputFolder}\{outputName}.webm'
+        fullPath = f'{outputFolder}/{outputName}.webm'
         
         # Gets output resolution option. 
         maxHeight = resSelect.get()
