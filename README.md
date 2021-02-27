@@ -1,15 +1,15 @@
 # WEBM GENERAL CONVERTER
 A video to webm conversion tool used to create high quality webms that stay below 4chan's file size limit.
 
-**Latest release:** https://github.com/scrodo/webmgeneral/releases/tag/v2.0
+**Latest release:** https://github.com/scrodo/webmgeneral/releases/tag/v3.0
 
-![alt text](https://i.imgur.com/m1Qv8Ly.jpg)
+![alt text](https://i.imgur.com/4CNmo5a.jpg)
 
 **Windows Requirements:** 
 
 The portable versions for Windows are standalone applications and do not require any additional installations.
 
-* Windows x64 Portable: https://github.com/scrodo/webmgeneral/releases/download/v2.0/WEBM_GENERAL__Portable___Windows_x64_v2.0.zip
+* Windows x64 Portable: https://github.com/scrodo/webmgeneral/releases/download/v3.0/WEBM_GENERAL__Portable___Windows_x64_v3.0.zip
 
 * Windows x86 Portable: https://github.com/scrodo/webmgeneral/releases/download/v2.0/WEBM_GENERAL__Portable___Windows_x86_v2.0.zip
 
@@ -19,17 +19,17 @@ Link to Python 3 download: https://www.python.org/downloads
 
 (Check 'Add Python to PATH' at the install screen.)
 
-Download link for Windows ffmpeg: https://ffmpeg.zeranoe.com/builds/
+Download link for Windows ffmpeg: https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-full.7z
 
 (ffmpeg.exe and ffprobe.exe will be in the bin folder.)
 
-The ffmpeg.exe and ffprobe.exe need to be put in the same folder as webmgeneral.py
+The ffmpeg.exe and ffprobe.exe need to be put in the same folder as webmgeneral.pyw
 
 Example commands for changing to the programs directory and running it:
 ```
 cd "C:\Users\chad\Desktop\webmgeneral-master"
 
-python "webmgeneral.py"
+start pythonw "webmgeneral.pyw"
 ```
 **Linux Requirements:**
 
@@ -43,7 +43,7 @@ sudo apt-get install ffmpeg
 ```
 Example command to run in the program in Linux:
 ```
-sudo python3 '/home/chad/Desktop/webmgeneral-master/webmgeneral_linux.py'
+sudo python3 '/home/chad/Desktop/webmgeneral-master/webmgeneral_linux.pyw'
 ```
 **macOS Requirements:** 
 
