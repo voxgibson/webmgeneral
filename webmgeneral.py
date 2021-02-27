@@ -1,9 +1,10 @@
-# WEBM GENERAL CONVERTER v2.0 #
+# WEBM GENERAL CONVERTER v3.0 #
 
 # Modules
 import os
+import threading
 import subprocess
-from tkinter import END, Button, Entry, Label, Tk, filedialog, StringVar, OptionMenu
+from tkinter import END, Button, Entry, Label, Tk, filedialog, StringVar, OptionMenu, messagebox, SUNKEN, W
 
 # Window Configuration
 window = Tk()
@@ -13,29 +14,55 @@ window.iconbitmap('icon.ico')
 window['bg'] = '#EEF2FF'
 
 # Functions
+def statusUpdate(status):
+    # Creates and updates status bar.
+    Label(text=status, anchor=W, relief=SUNKEN, width=67).grid(row=6, column=1, columnspan=5)
+
 def bitCalculate(*args):
     # Gets size and sound option and sets max bit size.
+    global sizeSound
+    global maxBitSize
+    global soundSelection
     sizeSound = sizeSoundSelect.get()
+    if sizeSound == 'No Limit (Sound)':
+        soundSelection = 'on'
+        bitRate_ent.delete(0, END)
+        bitRate_ent.insert(0, 'No Limit')
+        return
+    if sizeSound == 'No Limit (No Sound)':
+        soundSelection = 'off'
+        bitRate_ent.delete(0, END)
+        bitRate_ent.insert(0, 'No Limit')
+        return
+    if inputVideo_ent.get() == "":
+        bitRate_ent.delete(0, END)
+        return
     if sizeSound == '3MB (Sound)':
         maxBitSize = 25165824
+        soundSelection = 'on'
     if sizeSound == '3MB (No Sound)':
         maxBitSize = 25165824
+        soundSelection = 'off'
     if sizeSound == '4MB (Sound)':
         maxBitSize = 33165824
+        soundSelection = 'on'
     if sizeSound == '4MB (No Sound)':
         maxBitSize = 33165824
+        soundSelection = 'off'
     if sizeSound == '6MB (Sound)':
         maxBitSize = 50331648
+        soundSelection = 'on'
     if sizeSound == '6MB (No Sound)':
         maxBitSize = 50331648
+        soundSelection = 'off'
 
     # Gets input video path from entry field. 
-    videoInput = str(inputVideo_ent.get())
+    inputVideo = inputVideo_ent.get()
 
     # Uses ffprobe to get the videos total amount of seconds. 
-    videoSeconds = os.popen(f'ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 "{videoInput}"').read()
+    videoSeconds = os.popen(f'ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 "{inputVideo}"').read()
 
-    # Change bits and seconds to floats prior to bit rate calulation.
+    # Change bits and seconds to floats prior to bit rate calculation.
     maxBitsFloat = float(maxBitSize)
     secondsFloat = float(videoSeconds)
 
@@ -48,12 +75,17 @@ def bitCalculate(*args):
 
 def inputVideo():
     # Opens input video file dialog and fills in the input video entry field. 
-    directory = filedialog.askopenfilename(filetypes=[('Video Files',' *.3g2 *.3gp *.asf *.avi *.flv *.m2t *.m2ts *.m4v *.mkv *.mod *.mov *.mp4 *.mpg *.vob *.wmv'),('All', '*.*')])          
-    directoryPath = os.path.normpath(directory)
+    filename = filedialog.askopenfilename(filetypes=[('Video Files',' *.3g2 *.3gp *.asf *.avi *.flv *.m2t *.m2ts *.m4v *.mkv *.mod *.mov *.mp4 *.mpg *.vob *.wmv'),('All', '*.*')])          
+    directoryPath = os.path.normpath(filename)
     inputVideo_ent.delete(0, END)
     inputVideo_ent.insert(0, directoryPath)
-    metadata()
-    bitCalculate()
+    if inputVideo_ent.get() == ".":
+        inputVideo_ent.delete(0, END)
+        metadata_ent.delete(0, END)
+        bitRate_ent.delete(0, END)
+    else:
+        metadata()
+        bitCalculate()
 
 def outputFolder():
     # Opens output folder selection dialog. 
@@ -63,157 +95,137 @@ def outputFolder():
     # Fills in the output folder entry field. 
     outputFolder_ent.delete(0, END)
     outputFolder_ent.insert(0, directoryPath)
+    if outputFolder_ent.get() == ".":
+        outputFolder_ent.delete(0, END)
 
 def metadata():
     # Fills in the Metadata Title entry field.
-    inputVideo = str(inputVideo_ent.get())
+    inputVideo = inputVideo_ent.get()
     metadata = os.path.splitext(os.path.basename(inputVideo))[0]
     metadata_ent.delete(0, END)
     metadata_ent.insert(0, metadata)
 
-def start():
-    # Gets previous calculations and file paths.
-    bitRate = str(bitRate_ent.get())
-    metadata = str(metadata_ent.get())
-    inputVideo = str(inputVideo_ent.get())
-    outputFolder = str(outputFolder_ent.get())
-    outputName = os.path.splitext(os.path.basename(inputVideo))[0]
-    fullPath = str(f'{outputFolder}\{outputName}.webm')
-    
-    # Gets selected size, sound, output resolution option. 
-    sizeSound = sizeSoundSelect.get()
-    maxHeight = resSelect.get()
-
-    # Starts ffmpeg conversion from video to WebM and hides gui window during the process.
-    if sizeSound == "3MB (Sound)":
-        window.withdraw()
-        subprocess.call(f'ffmpeg -y -i "{inputVideo}" -metadata title="{metadata}" -threads 0 -sn -codec:a libvorbis -qscale:a 2 -c:v libvpx -b:v {bitRate} -vf scale=h=min(ih\,{maxHeight}):w=-2 -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f webm -pass 1 nul')
-        subprocess.call(f'ffmpeg -y -i "{inputVideo}" -metadata title="{metadata}" -threads 0 -sn -codec:a libvorbis -qscale:a 2 -c:v libvpx -b:v {bitRate} -vf scale=h=min(ih\,{maxHeight}):w=-2 -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f webm -pass 2 "{fullPath}"')
-    if sizeSound == "3MB (No Sound)":
-        window.withdraw()
-        subprocess.call(f'ffmpeg -y -i "{inputVideo}" -metadata title="{metadata}" -threads 0 -sn -an -c:v libvpx -b:v {bitRate} -vf scale=h=min(ih\,{maxHeight}):w=-2 -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f webm -pass 1 nul')
-        subprocess.call(f'ffmpeg -y -i "{inputVideo}" -metadata title="{metadata}" -threads 0 -sn -an -c:v libvpx -b:v {bitRate} -vf scale=h=min(ih\,{maxHeight}):w=-2 -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f webm -pass 2 "{fullPath}"')
-    if sizeSound == "4MB (Sound)":
-        window.withdraw()
-        subprocess.call(f'ffmpeg -y -i "{inputVideo}" -metadata title="{metadata}" -threads 0 -sn -codec:a libvorbis -qscale:a 2 -c:v libvpx -b:v {bitRate} -vf scale=h=min(ih\,{maxHeight}):w=-2 -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f webm -pass 1 nul')
-        subprocess.call(f'ffmpeg -y -i "{inputVideo}" -metadata title="{metadata}" -threads 0 -sn -codec:a libvorbis -qscale:a 2 -c:v libvpx -b:v {bitRate} -vf scale=h=min(ih\,{maxHeight}):w=-2 -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f webm -pass 2 "{fullPath}"')
-    if sizeSound == "4MB (No Sound)":
-        window.withdraw()
-        subprocess.call(f'ffmpeg -y -i "{inputVideo}" -metadata title="{metadata}" -threads 0 -sn -an -c:v libvpx -b:v {bitRate} -vf scale=h=min(ih\,{maxHeight}):w=-2 -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f webm -pass 1 nul')
-        subprocess.call(f'ffmpeg -y -i "{inputVideo}" -metadata title="{metadata}" -threads 0 -sn -an -c:v libvpx -b:v {bitRate} -vf scale=h=min(ih\,{maxHeight}):w=-2 -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f webm -pass 2 "{fullPath}"')
-    if sizeSound == "6MB (Sound)":
-        window.withdraw()
-        subprocess.call(f'ffmpeg -y -i "{inputVideo}" -metadata title="{metadata}" -threads 0 -sn -codec:a libvorbis -qscale:a 2 -c:v libvpx -b:v {bitRate} -vf scale=h=min(ih\,{maxHeight}):w=-2 -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f webm -pass 1 nul')
-        subprocess.call(f'ffmpeg -y -i "{inputVideo}" -metadata title="{metadata}" -threads 0 -sn -codec:a libvorbis -qscale:a 2 -c:v libvpx -b:v {bitRate} -vf scale=h=min(ih\,{maxHeight}):w=-2 -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f webm -pass 2 "{fullPath}"')
-    if sizeSound == "6MB (No Sound)":
-        window.withdraw()
-        subprocess.call(f'ffmpeg -y -i "{inputVideo}" -metadata title="{metadata}" -threads 0 -sn -an -c:v libvpx -b:v {bitRate} -vf scale=h=min(ih\,{maxHeight}):w=-2 -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f webm -pass 1 nul')
-        subprocess.call(f'ffmpeg -y -i "{inputVideo}" -metadata title="{metadata}" -threads 0 -sn -an -c:v libvpx -b:v {bitRate} -vf scale=h=min(ih\,{maxHeight}):w=-2 -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f webm -pass 2 "{fullPath}"')
-
-    # Removes ffmpeg2pass-0.log if it already exist. 
+def convert():
     try:
-        os.remove('ffmpeg2pass-0.log')
-    except OSError:
-        pass
+        # Updates status.
+        statusUpdate("Converting...")
 
-    # Gets size and sound option and sets max bit size.
-    if sizeSound == '3MB (Sound)':
-        maxBitSize = 25165824
-    if sizeSound == '3MB (No Sound)':
-        maxBitSize = 25165824
-    if sizeSound == '4MB (Sound)':
-        maxBitSize = 33165824
-    if sizeSound == '4MB (No Sound)':
-        maxBitSize = 33165824
-    if sizeSound == '6MB (Sound)':
-        maxBitSize = 50331648
-    if sizeSound == '6MB (No Sound)':
-        maxBitSize = 50331648
+        # Gets previous calculations and file paths.
+        bitRate = bitRate_ent.get()
+        metadata = metadata_ent.get()
+        inputVideo = inputVideo_ent.get()
+        outputFolder = outputFolder_ent.get()
+        outputName = os.path.splitext(os.path.basename(inputVideo))[0]
+        fullPath = f'{outputFolder}\{outputName}.webm'
+        
+        # Gets output resolution option. 
+        maxHeight = resSelect.get()
+        if maxHeight == "Source":
+            maxHeight = os.popen(f'ffprobe -v error -select_streams v:0 -show_entries stream=height -of default=nw=1:nk=1 "{inputVideo}"').read()
 
-    # Checks if WebM went over maximum file size. 
-    # If so the video is reconverted with a lower bit rate.
-    resultBytes = os.path.getsize(fullPath)
-    resultBits = resultBytes*8
+        if sizeSound == "No Limit (Sound)" or sizeSound == "No Limit (No Sound)":
+            
+            # Starts ffmpeg conversion from video to webm.
+            if soundSelection == 'on':
+                subprocess.call(f'ffmpeg -hide_banner -y -i "{inputVideo}" -metadata title="{metadata}" -threads 0 -sn -codec:a libvorbis -qscale:a 2 -c:v libvpx -b:v 0 -crf 10 -vf scale=h=min(ih\,{maxHeight}):w=-2 -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f null -pass 1 -')
+                subprocess.call(f'ffmpeg -hide_banner -y -i "{inputVideo}" -metadata title="{metadata}" -threads 0 -sn -codec:a libvorbis -qscale:a 2 -c:v libvpx -b:v 0 -crf 10 -vf scale=h=min(ih\,{maxHeight}):w=-2 -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f webm -pass 2 "{fullPath}"')
+            if soundSelection == 'off':
+                subprocess.call(f'ffmpeg -hide_banner -y -i "{inputVideo}" -metadata title="{metadata}" -threads 0 -sn -an -c:v libvpx -b:v 0 -crf 10 -vf scale=h=min(ih\,{maxHeight}):w=-2 -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f null -pass 1 -')
+                subprocess.call(f'ffmpeg -hide_banner -y -i "{inputVideo}" -metadata title="{metadata}" -threads 0 -sn -an -c:v libvpx -b:v 0 -crf 10 -vf scale=h=min(ih\,{maxHeight}):w=-2 -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f webm -pass 2 "{fullPath}"')
+            
+            # Removes ffmpeg2pass-0.log if it already exist. 
+            try:
+                os.remove('ffmpeg2pass-0.log')
+            except OSError:
+                pass
 
-    if resultBits < maxBitSize:
-        print('##############################################')
-        print('WEBM FILE SIZE LIMIT (Bits): ' + str(maxBitSize))
-        print('WEBM RESULT SIZE     (Bits): ' + str(resultBits))
-        print('##############################################')
-        print('WEBM OUTPUT RESULT IS BELOW FILE SIZE LIMIT')
-        print('FINISHED!')
-        window.deiconify()
-        return
-    if (resultBits - maxBitSize) > 1000000:
-        oldRate = int(bitRate_ent.get())
-        newRate = int(bitRate_ent.get())-50000
-        print('#############################################')
-        print('WEBM OUTPUT RESULT WENT OVER FILE SIZE LIMIT')
-        print('RECONVERTING INPUT VIDEO AT A LOWER BIT RATE')
-        print('#############################################')
-        print('WEBM FILE SIZE LIMIT (Bits): ' + str(maxBitSize))
-        print('WEBM RESULT SIZE     (Bits): ' + str(resultBits))
-        print('OLD RATE:          (Bits\s): ' + str(oldRate))
-        print('NEW RATE:          (Bits\s): ' + str(newRate))
-        print('#############################################')
-        bitRate_ent.delete(0, END)
-        bitRate_ent.insert(0, newRate)
-        start()
-    else:
-        oldRate = int(bitRate_ent.get())
-        newRate = int(bitRate_ent.get())-10000
-        print('#############################################')
-        print('WEBM OUTPUT RESULT WENT OVER FILE SIZE LIMIT')
-        print('RECONVERTING INPUT VIDEO AT A LOWER BIT RATE')
-        print('#############################################')
-        print('WEBM FILE SIZE LIMIT (Bits): ' + str(maxBitSize))
-        print('WEBM RESULT SIZE     (Bits): ' + str(resultBits))
-        print('OLD RATE:          (Bits\s): ' + str(oldRate))
-        print('NEW RATE:          (Bits\s): ' + str(newRate))
-        print('#############################################')
-        bitRate_ent.delete(0, END)
-        bitRate_ent.insert(0, newRate)
-        start()
+            resultBytes = os.path.getsize(fullPath)
+            resultMB = round(resultBytes/1024/1024, 2)
 
-# Entry Fields
-inputVideo_ent = Entry(fg='#789922', width=45)
-inputVideo_ent.grid(row=1, column=2, padx=1, sticky='W', columnspan=3)
+            statusUpdate('Finished!')
+            messagebox.showinfo(title='Finished!', message=f'Conversion Complete\nResult Size: {resultMB}MB')
+            return
+        
+        # Starts ffmpeg conversion from video to webm.
+        if soundSelection == 'on':
+            subprocess.call(f'ffmpeg -hide_banner -y -i "{inputVideo}" -metadata title="{metadata}" -threads 0 -sn -codec:a libvorbis -qscale:a 2 -c:v libvpx -b:v {bitRate} -vf scale=h=min(ih\,{maxHeight}):w=-2 -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f null -pass 1 -')
+            subprocess.call(f'ffmpeg -hide_banner -y -i "{inputVideo}" -metadata title="{metadata}" -threads 0 -sn -codec:a libvorbis -qscale:a 2 -c:v libvpx -b:v {bitRate} -vf scale=h=min(ih\,{maxHeight}):w=-2 -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f webm -pass 2 "{fullPath}"')
+        if soundSelection == 'off':
+            subprocess.call(f'ffmpeg -hide_banner -y -i "{inputVideo}" -metadata title="{metadata}" -threads 0 -sn -an -c:v libvpx -b:v {bitRate} -vf scale=h=min(ih\,{maxHeight}):w=-2 -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f null -pass 1 -')
+            subprocess.call(f'ffmpeg -hide_banner -y -i "{inputVideo}" -metadata title="{metadata}" -threads 0 -sn -an -c:v libvpx -b:v {bitRate} -vf scale=h=min(ih\,{maxHeight}):w=-2 -quality best -cpu-used 0 -slices 8 -auto-alt-ref 1 -f webm -pass 2 "{fullPath}"')
 
-outputFolder_ent = Entry(fg='#789922', width=45)
-outputFolder_ent.grid(row=2, column=2, padx=1, sticky='W', columnspan=3)
+        # Removes ffmpeg2pass-0.log if it already exist. 
+        try:
+            os.remove('ffmpeg2pass-0.log')
+        except OSError:
+            pass
 
-metadata_ent = Entry(fg='#0f0c5d', width=60)
-metadata_ent.grid(row=3, column=2, padx=1, sticky='W', columnspan=4)
+        # Checks if webm went over maximum file size. 
+        # If so the video is reconverted with a lower bit rate.
+        resultBytes = os.path.getsize(fullPath)
+        resultBits = resultBytes*8
+        resultMB = round(resultBytes/1024/1024, 2)
 
-bitRate_ent = Entry(fg='#d00', width=13)
-bitRate_ent.grid(row=4, column=5, padx=5, sticky='W')
+        if resultBits < maxBitSize:
+            statusUpdate('Finished!')
+            messagebox.showinfo(title='Finished!', message=f'Conversion Complete\nResult Size: {resultMB}MB')
+            return
+        if (resultBits - maxBitSize) > 100000:
+            oldRate = int(bitRate_ent.get())
+            newRate = int(bitRate_ent.get())-50000
+            bitRate_ent.delete(0, END)
+            bitRate_ent.insert(0, newRate)
+            convert()
+        else:
+            oldRate = int(bitRate_ent.get())
+            newRate = int(bitRate_ent.get())-10000
+            bitRate_ent.delete(0, END)
+            bitRate_ent.insert(0, newRate)
+            convert()
+    except:
+        # Updates status bar if error occurs.
+        statusUpdate("Error...")
 
-# Labels
-Label(text='WEBM GENERAL', font='Arial 11 bold', fg='#0f0c5d', bg='#EEF2FF').grid(row=0, column=1, sticky='W', columnspan=3)
-Label(text='Converter v2.0', font='Arial 10 bold', fg='#789922', bg='#EEF2FF').grid(row=0, column=4, sticky='W')
-Label(text='Input Video >', bg='#EEF2FF').grid(row=1, column=1, sticky='E')
-Label(text='Output Folder >', bg='#EEF2FF').grid(row=2, column=1, sticky='E')
-Label(text='Metadata Title >', bg='#EEF2FF').grid(row=3, column=1, sticky='E')
-Label(text='Calculated Maximum Allowed Bitrate (Bits/s) >', bg='#EEF2FF').grid(row=4, column=4, sticky='E')
+def runStart():
+    # Runs conversion process separate from main window.
+    threading.Thread(target=convert).start()
 
 # Size and sound options.
-sizeSoundList = ["3MB (Sound)", "3MB (No Sound)", "4MB (Sound)", "4MB (No Sound)", "6MB (Sound)", "6MB (No Sound)"]
+sizeSoundList = ["3MB (Sound)", "3MB (No Sound)", "4MB (Sound)", "4MB (No Sound)", "6MB (Sound)", "6MB (No Sound)", "No Limit (Sound)", "No Limit (No Sound)"]
 sizeSoundSelect = StringVar()
 sizeSoundSelect.set(sizeSoundList[1])
 sizeSoundSelect.trace("w", bitCalculate)
 outSizeSound_ent = OptionMenu(window, sizeSoundSelect, *sizeSoundList)
-outSizeSound_ent.grid(row=0, column=4, padx=5, pady=1, sticky='E')
+outSizeSound_ent.grid(row=1, column=4, pady=1, sticky='E')
 
 # Max output resolution options.
-resList = ["480", "720", "1080"]
+resList = ["480", "720", "1080", "Source"]
 resSelect = StringVar()
-resSelect.set(resList[1])
+resSelect.set(resList[3])
 outRes_ent = OptionMenu(window, resSelect, *resList)
-outRes_ent.grid(row=0, column=5, padx=5, pady=1, sticky='W')
+outRes_ent.grid(row=1, column=5, padx=5, pady=1, sticky='W')
+
+# Labels
+Label(text='WEBM GENERAL', font='Arial 11 bold', fg='#0f0c5d', bg='#EEF2FF').grid(row=1, column=1, sticky='E', columnspan=2)
+Label(text='Converter v3.0', font='Arial 10 bold', fg='#789922', bg='#EEF2FF').grid(row=1, column=3, sticky='W', columnspan=2)
+Label(text='Input Video >', bg='#EEF2FF').grid(row=2, column=1, sticky='E')
+Label(text='Output Folder >', bg='#EEF2FF').grid(row=3, column=1, sticky='E')
+Label(text='Metadata Title >', bg='#EEF2FF').grid(row=4, column=1, sticky='E')
+Label(text='Calculated Maximum Allowed Bitrate (Bits/s) >', bg='#EEF2FF').grid(row=5, column=4, sticky='E')
+
+# Entry Fields
+inputVideo_ent = Entry(fg='#789922', width=45)
+inputVideo_ent.grid(row=2, column=2, padx=1, sticky='W', columnspan=3)
+outputFolder_ent = Entry(fg='#789922', width=45)
+outputFolder_ent.grid(row=3, column=2, padx=1, sticky='W', columnspan=3)
+metadata_ent = Entry(fg='#0f0c5d', width=60)
+metadata_ent.grid(row=4, column=2, padx=1, sticky='W', columnspan=4)
+bitRate_ent = Entry(fg='#d00', width=13)
+bitRate_ent.grid(row=5, column=5, padx=6)
 
 # Buttons
-Button(text='Browse', width=10, command=inputVideo).grid(row=1, column=5, padx=5, sticky='W')
-Button(text='Browse', width=10, command=outputFolder).grid(row=2, column=5, padx=5, pady=5, sticky='W')
-Button(text='Start', width=10, command=start).grid(row=4, column=1, padx=5, pady=5, columnspan=1)
+Button(text='Browse', width=10, command=inputVideo).grid(row=2, column=5, padx=5)
+Button(text='Browse', width=10, command=outputFolder).grid(row=3, column=5, padx=5, pady=5)
+Button(text='Start', width=10, command=runStart).grid(row=5, column=1, padx=5, pady=5)
 
 window.mainloop()
